@@ -5,7 +5,7 @@ using UnityEngine;
 public class Menu : MonoBehaviour
 {
     public Bullet bulletPrefab;
-    public Rotator rotator;
+    private Rotator rotator;
 
     private GameManager gameManager;
     private OptionButton optionButton;
@@ -51,5 +51,10 @@ public class Menu : MonoBehaviour
         rotator.rotationSpeed = 90f;
 
         gameManager.ReStart();
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }
