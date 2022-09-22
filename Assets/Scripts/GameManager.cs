@@ -17,14 +17,21 @@ public class GameManager : MonoBehaviour
     private BulletSpawner[] bulletSpawners;
     public Bullet[] bullets;
 
+    // 무적 기능과 관련된 텍스트 표시를 위한 변수들
+    public Text superText;
+    private PlayerController playerController;
+    float supertime;
+
     // Start is called before the first frame update
     void Start()
     {
         surviveTime = 0;
         isGameover = false;
         Time.timeScale = 0;
+        difficulty = "Newbie";
 
         bulletSpawners = FindObjectsOfType<BulletSpawner>();
+        playerController = FindObjectOfType<PlayerController>();
     }
 
     // Update is called once per frame
@@ -41,6 +48,17 @@ public class GameManager : MonoBehaviour
             {
                 ReStart();
             }
+        }
+
+        // 무적 관련 텍스트 표기
+        supertime = playerController.GetSuperReloadTimer();
+        if (supertime <= 0f)
+        {
+            superText.text = "스페이스바를 눌러 무적!";
+        }
+        else
+        {
+            superText.text = "무적까지 " + string.Format("{0:0.0}", supertime) + "초";
         }
     }
 
@@ -61,18 +79,8 @@ public class GameManager : MonoBehaviour
             bestTime = (int)surviveTime;
             PlayerPrefs.SetInt(difficulty, bestTime);
         }
-        if (difficulty == "easy")
-        {
-            recordText.text = "Easy 최고기록: " + bestTime + "초";
-        }
-        else if(difficulty == "normal")
-        {
-            recordText.text = "Normal 최고기록: " + bestTime + "초";
-        }
-        else
-        {
-            recordText.text = "Hard 최고기록: " + bestTime + "초";
-        }
+
+        recordText.text = difficulty + " 최고기록: " + bestTime + "초";
     }
 
     public void ReStart()
@@ -95,5 +103,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(i.gameObject);
         }
+
+        // 무적시간 초기화
+        playerController.SetSuperReloadTimer(0f);
     }
 }
