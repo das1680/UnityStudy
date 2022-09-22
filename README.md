@@ -1,4 +1,5 @@
-# UnityStudy
+# UnityStudy - Dodge
+
 유니티 공부 22/09/07
 
 0920 깃허브 생성
