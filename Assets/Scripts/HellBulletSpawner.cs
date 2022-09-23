@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletSpawner : MonoBehaviour
+public class HellBulletSpawner : MonoBehaviour
 {
     public GameObject bulletPrefab;
     public float spawnRateMin = 0.5f;

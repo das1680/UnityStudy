@@ -22,6 +22,8 @@ public class OptionButton : MonoBehaviour
 
     public void OptionClick()
     {
+
+
         if (isMenu)
         {
             inGameUI.SetActive(true);

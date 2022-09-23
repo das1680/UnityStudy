@@ -14,8 +14,9 @@ public class GameManager : MonoBehaviour
 
     private float surviveTime;
     private bool isGameover;
-    private BulletSpawner[] bulletSpawners;
-    public Bullet[] bullets;
+    public BulletSpawner[] bulletSpawners;
+    private Bullet[] bullets;
+    private HellBullet[] hellBullets;
 
     // 무적 기능과 관련된 텍스트 표시를 위한 변수들
     public Text superText;
@@ -62,6 +63,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void BulletSpawnSetting(float min, float max)
+    {
+        foreach (BulletSpawner i in bulletSpawners)
+        {
+            i.spawnRateMin = min;
+            i.spawnRateMax = max;
+        }
+    }
+
     public void EndGame()
     {
         foreach (BulletSpawner i in bulletSpawners)
@@ -104,6 +114,12 @@ public class GameManager : MonoBehaviour
             Destroy(i.gameObject);
         }
 
+        hellBullets = FindObjectsOfType<HellBullet>();
+
+        foreach (HellBullet i in hellBullets)
+        {
+            Destroy(i.gameObject);
+        }
         // 무적시간 초기화
         playerController.SetSuperReloadTimer(0f);
     }

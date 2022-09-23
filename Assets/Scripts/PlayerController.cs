@@ -54,6 +54,25 @@ public class PlayerController : MonoBehaviour
 
         playerRigidbody.velocity = newVelocity;
 
+        // 무적상태에서 한번 더 쓰면 모든 총알 제거
+        if (Input.GetKeyDown(KeyCode.Space) && isSuper == true)
+        {
+            superReloadTimer += 10f;
+
+            Bullet[] bullets = FindObjectsOfType<Bullet>();
+
+            foreach (Bullet i in bullets)
+            {
+                Destroy(i.gameObject);
+            }
+
+            HellBullet[] hellBullets = FindObjectsOfType<HellBullet>();
+
+            foreach (HellBullet i in hellBullets)
+            {
+                Destroy(i.gameObject);
+            }
+        }
 
         // 무적 시간 설정
         if (Input.GetKeyDown(KeyCode.Space))
@@ -61,8 +80,8 @@ public class PlayerController : MonoBehaviour
             if (superReloadTimer <= 0f)
             {
                 isSuper = true;
-                superTimer = 2f;
-                superReloadTimer = 10f;
+                superTimer = 1f;
+                superReloadTimer = 5f;
 
                 // 무적과 함께 노랑색으로 변경
                 material.color = Color.yellow;

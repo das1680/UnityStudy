@@ -10,6 +10,8 @@ public class Menu : MonoBehaviour
     private GameManager gameManager;
     private OptionButton optionButton;
 
+    public GameObject hellLevel;
+
     void Start()
     {
         optionButton = FindObjectOfType<OptionButton>();
@@ -17,14 +19,34 @@ public class Menu : MonoBehaviour
         rotator = FindObjectOfType<Rotator>();
     }
 
+    public void Newbie()
+    {
+        gameManager.difficulty = "Newbie";
+        bulletPrefab.speed = 6f;
+        optionButton.OptionClick();
+        Time.timeScale = 1;
+
+        rotator.rotationSpeed = 0f;
+
+        gameManager.BulletSpawnSetting(2f, 4f);
+
+        hellLevel.SetActive(false);
+
+        gameManager.ReStart();
+    }
+
     public void Easy()
     {
         gameManager.difficulty = "easy";
-        bulletPrefab.speed = 4f;
+        bulletPrefab.speed = 6f;
         optionButton.OptionClick();
         Time.timeScale = 1;
 
         rotator.rotationSpeed = 30f;
+
+        gameManager.BulletSpawnSetting(1f, 3f);
+
+        hellLevel.SetActive(false);
 
         gameManager.ReStart();
     }
@@ -38,6 +60,10 @@ public class Menu : MonoBehaviour
 
         rotator.rotationSpeed = 60f;
 
+        gameManager.BulletSpawnSetting(0.5f, 2.5f);
+
+        hellLevel.SetActive(false);
+
         gameManager.ReStart();
     }
 
@@ -49,6 +75,26 @@ public class Menu : MonoBehaviour
         Time.timeScale = 1;
 
         rotator.rotationSpeed = 90f;
+
+        gameManager.BulletSpawnSetting(0.5f, 3f);
+
+        hellLevel.SetActive(false);
+
+        gameManager.ReStart();
+    }
+
+    public void Hell()
+    {
+        gameManager.difficulty = "hell";
+        bulletPrefab.speed = 12f;
+        optionButton.OptionClick();
+        Time.timeScale = 1;
+
+        rotator.rotationSpeed = 90f;
+
+        gameManager.BulletSpawnSetting(0.5f, 3f);
+
+        hellLevel.SetActive(true);
 
         gameManager.ReStart();
     }
