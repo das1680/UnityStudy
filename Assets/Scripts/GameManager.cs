@@ -11,10 +11,12 @@ public class GameManager : MonoBehaviour
     public Text recordText;
     public GameObject player;
     public string difficulty;
+    public GameObject level;
 
     private float surviveTime;
     private bool isGameover;
-    public BulletSpawner[] bulletSpawners;
+    private BulletSpawner[] bulletSpawners;
+    private HellBulletSpawner[] hellBulletSpawners;
     private Bullet[] bullets;
     private HellBullet[] hellBullets;
 
@@ -32,6 +34,7 @@ public class GameManager : MonoBehaviour
         difficulty = "Newbie";
 
         bulletSpawners = FindObjectsOfType<BulletSpawner>();
+        hellBulletSpawners = FindObjectsOfType<HellBulletSpawner>();
         playerController = FindObjectOfType<PlayerController>();
     }
 
@@ -79,6 +82,11 @@ public class GameManager : MonoBehaviour
             i.shoot = false;
         }
 
+        foreach (HellBulletSpawner i in hellBulletSpawners)
+        {
+            i.shoot = false;
+        }
+
         isGameover = true;
         gameoverText.SetActive(true);
 
@@ -102,9 +110,18 @@ public class GameManager : MonoBehaviour
         player.SetActive(true);
         player.transform.position = new Vector3(0, 1, 0);
 
+        // 게임 재시작시 레벨 회전 초기화
+        level.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+
         foreach(BulletSpawner i in bulletSpawners)
         {
-            i.shoot = true;
+            i.RestartBulletSpawner();
+        }
+
+        foreach (HellBulletSpawner i in hellBulletSpawners)
+        {
+            i.RestartBulletSpawner();
         }
 
         bullets = FindObjectsOfType<Bullet>();

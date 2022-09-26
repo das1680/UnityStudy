@@ -44,4 +44,10 @@ public class HellBulletSpawner : MonoBehaviour
             }
         }
     }
+
+    public void RestartBulletSpawner()
+    {
+        shoot = true;
+        timeAfterSpawn = 0f;
+    }
 }

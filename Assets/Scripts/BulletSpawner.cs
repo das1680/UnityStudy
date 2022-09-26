@@ -44,4 +44,10 @@ public class BulletSpawner : MonoBehaviour
             }
         }
     }
+
+    public void RestartBulletSpawner()
+    {
+        shoot = true;
+        timeAfterSpawn = 0f;
+    }
 }

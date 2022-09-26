@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
@@ -92,7 +93,7 @@ public class Menu : MonoBehaviour
 
         rotator.rotationSpeed = 90f;
 
-        gameManager.BulletSpawnSetting(0.5f, 3f);
+        gameManager.BulletSpawnSetting(0.5f, 2.5f);   
 
         hellLevel.SetActive(true);
 
@@ -101,6 +102,7 @@ public class Menu : MonoBehaviour
 
     public void Quit()
     {
-        Application.Quit();
+        SceneManager.LoadScene("Main");
+        Time.timeScale = 1;
     }
 }
