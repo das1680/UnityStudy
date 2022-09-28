@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44162408, g: 0.49050868, b: 0.57050776, a: 1}
+  m_IndirectSpecularColor: {r: 0.44435748, g: 0.49382228, b: 0.5731695, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1673,7 +1673,6 @@ MonoBehaviour:
   player: {fileID: 966173237}
   difficulty: 
   level: {fileID: 470711030}
-  bulletSpawners: []
   superText: {fileID: 1458666253}
 --- !u!4 &537344021 stripped
 Transform:
@@ -1858,7 +1857,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 1.5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1915,14 +1914,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
-  m_LocalRotation: {x: 0.59562474, y: -0.53097457, z: 0.53498715, w: 0.2776435}
-  m_LocalPosition: {x: 1, y: 10, z: 0}
+  m_LocalRotation: {x: 0.5213443, y: -0.18765414, z: -0.085780494, w: 0.8280264}
+  m_LocalPosition: {x: 11.91, y: 11.62, z: -9.24}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 115.98999, y: -51.39801, z: 49.951996}
+  m_LocalEulerAnglesHint: {x: 56.22, y: -46.037, z: -37.402}
 --- !u!1 &725806082
 GameObject:
   m_ObjectHideFlags: 0

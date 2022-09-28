@@ -31,11 +31,13 @@ public class GameManager : MonoBehaviour
         surviveTime = 0;
         isGameover = false;
         Time.timeScale = 0;
-        difficulty = "Newbie";
 
         bulletSpawners = FindObjectsOfType<BulletSpawner>();
         hellBulletSpawners = FindObjectsOfType<HellBulletSpawner>();
         playerController = FindObjectOfType<PlayerController>();
+
+        BulletSpawnSetting(2f, 4f);
+        difficulty = "Newbie";
     }
 
     // Update is called once per frame
