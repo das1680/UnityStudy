@@ -43,6 +43,11 @@ public class PlayerController : MonoBehaviour {
             playerRigidbody.velocity *= 0.5f;
         }
 
+        if (Input.GetMouseButtonDown(1))
+        {
+            playerRigidbody.AddForce(new Vector2(0, jumpForce * -3));
+        }
+
         animator.SetBool("Grounded", isGrounded);
     }
 
@@ -57,12 +62,14 @@ public class PlayerController : MonoBehaviour {
 
         playerRigidbody.velocity = Vector2.zero;
         isDead = true;
+
+        GameManager.instance.OnPlayerDead();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         // 트리거 콜라이더를 가진 장애물과의 충돌을 감지
-        if (other.tag == "Deaed" && !isDead)
+        if (other.tag == "Dead" && !isDead)
         {
             Die();
         }
