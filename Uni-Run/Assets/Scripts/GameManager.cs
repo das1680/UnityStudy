@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour {
     public Text scoreText; // 점수를 출력할 UI 텍스트
     public GameObject gameoverUI; // 게임 오버시 활성화 할 UI 게임 오브젝트
 
+    public Text addScore;
+
     private int score = 0; // 게임 점수
 
     // 게임 시작과 동시에 싱글톤을 구성
@@ -48,8 +50,10 @@ public class GameManager : MonoBehaviour {
         if (!isGameover)
         {
             score += newScore;
-            scoreText.text = "Score" + score;
+            scoreText.text = "Score: " + score;
         }
+        addScore.text = "+" + newScore;
+        addScore.gameObject.SetActive(true);
     }
 
     // 플레이어 캐릭터가 사망시 게임 오버를 실행하는 메서드
