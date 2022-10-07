@@ -15,7 +15,7 @@ public class MoveAnim : MonoBehaviour
     private void OnEnable()
     {
         GameObject player = FindObjectOfType<PlayerController>().gameObject;
-        transform.position = (Vector2)Camera.main.WorldToScreenPoint(player.transform.position) + new Vector2(0, 50);
+        transform.position = (Vector2)Camera.main.WorldToScreenPoint(player.transform.position) + new Vector2(0, 100);
          dir = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
     }
 }

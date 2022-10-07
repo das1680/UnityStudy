@@ -8,10 +8,13 @@ public class GameManager : MonoBehaviour {
     public static GameManager instance; // 싱글톤을 할당할 전역 변수
 
     public bool isGameover = false; // 게임 오버 상태
+    public bool isHigh = false;
     public Text scoreText; // 점수를 출력할 UI 텍스트
     public GameObject gameoverUI; // 게임 오버시 활성화 할 UI 게임 오브젝트
 
     public Text addScore;
+
+    public float timescale = 1;
 
     private int score = 0; // 게임 점수
 

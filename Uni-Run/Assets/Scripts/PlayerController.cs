@@ -49,6 +49,20 @@ public class PlayerController : MonoBehaviour {
         }
 
         animator.SetBool("Grounded", isGrounded);
+
+        if (transform.position.x < -6)
+        {
+            playerRigidbody.velocity = new Vector2(0.5f, playerRigidbody.velocity.y);
+        }
+
+        if (transform.position.y > 5.5f)
+        {
+            GameManager.instance.isHigh = true;
+        }
+        else
+        {
+            GameManager.instance.isHigh = false;
+        }
     }
 
     private void Die()
