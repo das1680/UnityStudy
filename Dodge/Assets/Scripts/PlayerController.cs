@@ -17,14 +17,17 @@ public class PlayerController : MonoBehaviour
     private Material material;
     private Color color;
 
+    // 마우스 조작을 위한 이동위치벡터, 메인 카메라
+    public Vector3 movePoint;
+    public Camera mainCamera;
+
     public void Die()
     {
         if (!isSuper)
         {
             gameObject.SetActive(false);
 
-            GameManager gamemanager = FindObjectOfType<GameManager>();
-            gamemanager.EndGame();
+            GameManager.instance.EndGame();
         }
         
     }
@@ -38,21 +41,41 @@ public class PlayerController : MonoBehaviour
         // 오브젝트 렌더러에서 머티리얼 뽑아옴
         material = GetComponent<Renderer>().material;
         color = material.color;
+
+        // 메인카메라 설정
+        mainCamera = Camera.main;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.instance.gameMode) // 게임모드가 true면 키보드 조작
+        {
+            float xInput = Input.GetAxis("Horizontal");
+            float zInput = Input.GetAxis("Vertical");
 
-        float xInput = Input.GetAxis("Horizontal");
-        float zInput = Input.GetAxis("Vertical");
+            playerRigidbody.velocity = new Vector3(xInput, 0f, zInput).normalized * speed;
+        }
+        else
+        {
+            if (Input.GetMouseButton(1))
+            {
+                Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
-        float xSpeed = xInput * speed;
-        float zSpeed = zInput * speed;
+                if(Physics.Raycast(ray, out RaycastHit raycastHit))
+                {
+                    movePoint = raycastHit.point;
+                    movePoint = new Vector3(movePoint.x, 1, movePoint.z);
+                }
 
-        Vector3 newVelocity = new Vector3(xSpeed, 0f, zSpeed);
+                playerRigidbody.velocity = (movePoint - transform.position).normalized * speed;
+            }
+            if(Vector3.Distance(movePoint, transform.position) < 0.08f)
+            {
+                playerRigidbody.velocity = Vector3.zero;
+            }
+        }
 
-        playerRigidbody.velocity = newVelocity;
 
         // 무적상태에서 한번 더 쓰면 모든 총알 제거
         if (Input.GetKeyDown(KeyCode.Space) && isSuper == true)

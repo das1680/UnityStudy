@@ -6,6 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
+
+    public bool gameMode;
+
     public GameObject gameoverText;
     public Text timeText;
     public Text recordText;
@@ -24,6 +28,12 @@ public class GameManager : MonoBehaviour
     public Text superText;
     private PlayerController playerController;
     float supertime;
+
+    void Awake()
+    {
+        if (instance == null) instance = this;
+        else Destroy(gameObject);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -103,6 +113,23 @@ public class GameManager : MonoBehaviour
         recordText.text = difficulty + " 최고기록: " + bestTime + "초";
     }
 
+    public void CleanBullets()
+    {
+        bullets = FindObjectsOfType<Bullet>();
+
+        foreach (Bullet i in bullets)
+        {
+            Destroy(i.gameObject);
+        }
+
+        hellBullets = FindObjectsOfType<HellBullet>();
+
+        foreach (HellBullet i in hellBullets)
+        {
+            Destroy(i.gameObject);
+        }
+    }
+
     public void ReStart()
     {
         surviveTime = 0f;
@@ -126,19 +153,8 @@ public class GameManager : MonoBehaviour
             i.RestartBulletSpawner();
         }
 
-        bullets = FindObjectsOfType<Bullet>();
+        CleanBullets();
 
-        foreach (Bullet i in bullets)
-        {
-            Destroy(i.gameObject);
-        }
-
-        hellBullets = FindObjectsOfType<HellBullet>();
-
-        foreach (HellBullet i in hellBullets)
-        {
-            Destroy(i.gameObject);
-        }
         // 무적시간 초기화
         playerController.SetSuperReloadTimer(0f);
     }

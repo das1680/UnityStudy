@@ -16,7 +16,7 @@ public class Menu : MonoBehaviour
     void Start()
     {
         optionButton = FindObjectOfType<OptionButton>();
-        gameManager = FindObjectOfType<GameManager>();
+        gameManager = GameManager.instance;
         rotator = FindObjectOfType<Rotator>();
     }
 
