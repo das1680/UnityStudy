@@ -31,8 +31,15 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        if (instance == null) instance = this;
-        else Destroy(gameObject);
+        if (instance == null)
+        {
+            instance = this;
+            gameMode = true;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Start is called before the first frame update
@@ -67,7 +74,7 @@ public class GameManager : MonoBehaviour
         }
 
         // 무적 관련 텍스트 표기
-        supertime = playerController.GetSuperReloadTimer();
+        supertime = playerController.superReloadTimer;
         if (supertime <= 0f)
         {
             superText.text = "스페이스바를 눌러 무적!";
@@ -156,6 +163,6 @@ public class GameManager : MonoBehaviour
         CleanBullets();
 
         // 무적시간 초기화
-        playerController.SetSuperReloadTimer(0f);
+        playerController.ResetPlayer();
     }
 }

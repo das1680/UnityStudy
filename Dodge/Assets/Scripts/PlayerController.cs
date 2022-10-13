@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     // 무적여부, 무적지속시간, 무적 쿨타임
     private bool isSuper;
     private float superTimer = 0f;
-    private float superReloadTimer = 0f;
+    public float superReloadTimer { get; private set; }
 
     // 색 변경을 위한 머티리얼과 원래 색 저정을 위한 Color
     private Material material;
@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        superReloadTimer = 0f;
+
         playerRigidbody = GetComponent<Rigidbody>();
 
         // 오브젝트 렌더러에서 머티리얼 뽑아옴
@@ -60,9 +62,11 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetMouseButton(1))
             {
+                int layerMask = (-1) - (1 << LayerMask.NameToLayer("Ignore Raycast"));
+
                 Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
-                if(Physics.Raycast(ray, out RaycastHit raycastHit))
+                if(Physics.Raycast(ray, out RaycastHit raycastHit, Mathf.Infinity, layerMask))
                 {
                     movePoint = raycastHit.point;
                     movePoint = new Vector3(movePoint.x, 1, movePoint.z);
@@ -70,7 +74,7 @@ public class PlayerController : MonoBehaviour
 
                 playerRigidbody.velocity = (movePoint - transform.position).normalized * speed;
             }
-            if(Vector3.Distance(movePoint, transform.position) < 0.08f)
+            if(Vector3.Distance(movePoint, transform.position) < 0.15f)
             {
                 playerRigidbody.velocity = Vector3.zero;
             }
@@ -82,19 +86,7 @@ public class PlayerController : MonoBehaviour
         {
             superReloadTimer += 10f;
 
-            Bullet[] bullets = FindObjectsOfType<Bullet>();
-
-            foreach (Bullet i in bullets)
-            {
-                Destroy(i.gameObject);
-            }
-
-            HellBullet[] hellBullets = FindObjectsOfType<HellBullet>();
-
-            foreach (HellBullet i in hellBullets)
-            {
-                Destroy(i.gameObject);
-            }
+            GameManager.instance.CleanBullets();
         }
 
         // 무적 시간 설정
@@ -122,13 +114,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public float GetSuperReloadTimer()
+    public void ResetPlayer()
     {
-        return superReloadTimer;
-    }
-
-    public void SetSuperReloadTimer(float a)
-    {
-        superReloadTimer = a;
+        superReloadTimer = 0f;
+        playerRigidbody.velocity = Vector3.zero;
     }
 }
