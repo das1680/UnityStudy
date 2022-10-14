@@ -96,3 +96,9 @@ platform spawner 추가
 마우스 조작시에 캐릭터를 눌러도 캐릭터가 아닌 그 뒤의 바닥이 클릭되도록 변경  
 https://timeboxstory.tistory.com/82 참고  
 게임 시작시 조작법 선택이 제대로 작동하지 않던 문제 수정  
+<br>
+<br>
+## 1014
+### Uni-Run
+메인화면 구현  
+esc와 버튼을 통해 메뉴창 키고 끄도록 구현  
