@@ -12,11 +12,12 @@ public class GameManager : MonoBehaviour {
     public Text scoreText; // 점수를 출력할 UI 텍스트
     public GameObject gameoverUI; // 게임 오버시 활성화 할 UI 게임 오브젝트
 
-    public Text addScore;
+    public Text[] addScore;
+    private int count = 4;
 
     public float timescale = 1;
 
-    private int score = 0; // 게임 점수
+    public int score { get; private set; }
 
     // 게임 시작과 동시에 싱글톤을 구성
     void Awake()
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour {
         {
             // instance가 비어있다면(null) 그곳에 자기 자신을 할당
             instance = this;
+            score = 0;
         }
         else
         {
@@ -44,6 +46,7 @@ public class GameManager : MonoBehaviour {
         if(isGameover && Input.GetMouseButtonDown(0))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Time.timeScale = 1;
         }
     }
 
@@ -55,8 +58,10 @@ public class GameManager : MonoBehaviour {
             score += newScore;
             scoreText.text = "Score: " + score;
         }
-        addScore.text = "+" + newScore;
-        addScore.gameObject.SetActive(true);
+        addScore[count].text = "+" + newScore;
+        addScore[count].gameObject.SetActive(true);
+        count--;
+        if (count <= -1) count = 4;
     }
 
     // 플레이어 캐릭터가 사망시 게임 오버를 실행하는 메서드

@@ -9,7 +9,7 @@ public class Menu : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) MenuToggle();
+        if (Input.GetKeyDown(KeyCode.Escape)) MenuToggle(); 
     }
 
     public void MenuToggle()

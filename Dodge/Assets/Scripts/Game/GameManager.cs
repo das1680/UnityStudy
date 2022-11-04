@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
         }
 
         // 무적 관련 텍스트 표기
-        supertime = playerController.superReloadTimer;
+        supertime = AbilityManager.instance.superReloadTimer;
         if (supertime <= 0f)
         {
             superText.text = "스페이스바를 눌러 무적!";
