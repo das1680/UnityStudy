@@ -58,6 +58,7 @@ public class Gun : MonoBehaviour
             lastFireTime = Time.time;
 
             Shot();
+            
         }
     }
 
@@ -69,10 +70,9 @@ public class Gun : MonoBehaviour
         if(Physics.Raycast(fireTransform.position, fireTransform.forward, out hit, fireDistance))
         {
             IDamageable target = hit.collider.GetComponent<IDamageable>();
-
-            if(target != null)
+            if (target != null)
             {
-                target.OnDamege(gunData.damage, hit.point, hit.normal);
+                target.OnDamage(gunData.damage, hit.point, hit.normal);
             }
 
             hitPosition = hit.point;
@@ -99,7 +99,7 @@ public class Gun : MonoBehaviour
         gunAudioPlayer.PlayOneShot(gunData.shotClip);   // ÃÑ¼Ò¸® Àç»ý
 
         bulletLineRenderer.SetPosition(0, fireTransform.position);
-        bulletLineRenderer.SetPosition(0, hitPosition);
+        bulletLineRenderer.SetPosition(1, hitPosition);
 
         bulletLineRenderer.enabled = true;
 
@@ -108,7 +108,7 @@ public class Gun : MonoBehaviour
         bulletLineRenderer.enabled = false;
     }
 
-    private bool Reload()
+    public bool Reload()
     {
         if(state==State.Reloading || ammoRemain <= 0 || magAmmo >= gunData.magCapacity)
         {

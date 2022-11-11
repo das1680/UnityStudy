@@ -13,6 +13,8 @@ public class CPlayerController : MonoBehaviour {
     private Animator animator; // 사용할 애니메이터 컴포넌트
     private AudioSource playerAudio; // 사용할 오디오 소스 컴포넌트
 
+    public int maxJump = 2;
+
     private void Start()
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
@@ -28,7 +30,7 @@ public class CPlayerController : MonoBehaviour {
             return;
         }
 
-        if(Input.GetMouseButtonDown(0) && jumpCount < 2)
+        if(Input.GetMouseButtonDown(0) && jumpCount < maxJump)
         {
             jumpCount++;
 

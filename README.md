@@ -137,4 +137,15 @@ Gun 스크립트 완성
 ### Dodge
 여러 기능들을 함수화 (키보드 조작, 마우스 조작)
 특수능력 사용 기능을 PlayerController에서 AbilityManager 스크립트로 옮겨서 새로 만듬  
+<br>
+<br>
+## 1108
+### Zombie Survival
+플레이어 캐릭터 총쏘고 장전하고 움직이는 기능 완성  
+<br>
+<br>
+## 1111
+### Zombie Survival
+좀비 플레이어 추적, 움직임, 공격, 사망 모두 완성  
+플레이어와 좀비 서로 공격 가능한 것 확인  
 
