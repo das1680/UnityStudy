@@ -1,8 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
 {
     public static GameManager instance
     {
@@ -17,9 +17,24 @@ public class GameManager : MonoBehaviour
     }
     private static GameManager m_instance;
 
+    public GameObject playerPrefab;
+
     private int score = 0;
     public bool isGameover { get; private set; }
 
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(score);
+        }
+        else
+        {
+            score = (int)stream.ReceiveNext();
+            UIManager.instance.UpdateScoreText(score);
+        }
+    }
     private void Awake()
     {
         if (instance != this)
@@ -30,7 +45,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        FindObjectOfType<PlayerHealth>().onDeath += EndGame;
+        Vector3 randomSpawnPos = Random.insideUnitSphere * 5f;
+        randomSpawnPos.y = 0;
+
+        PhotonNetwork.Instantiate(playerPrefab.name, randomSpawnPos, Quaternion.identity);
     }
 
     public void AddScore(int newScore)
@@ -42,9 +60,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void EndGame()
+    private void Update()
     {
-        isGameover = true;
-        UIManager.instance.SetActiveGameoverUI(true);
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PhotonNetwork.LeaveRoom();
+        }
+    }
+
+    public override void OnLeftRoom()
+    {
+        SceneManager.LoadScene("Lobby");
     }
 }

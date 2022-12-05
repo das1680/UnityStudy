@@ -1,7 +1,8 @@
 using System;
+using Photon.Pun;
 using UnityEngine;
 
-public class LivingEntity : MonoBehaviour, IDamageable
+public class LivingEntity : MonoBehaviourPun, IDamageable
 {
     public float startingHealth = 100f;
     public float health { get; protected set; }
@@ -9,15 +10,30 @@ public class LivingEntity : MonoBehaviour, IDamageable
     public event Action onDeath;
 
 
+    [PunRPC]
+    public void ApplyUpdatedHealth(float newHealth, bool newDead)
+    {
+        health = newHealth;
+        dead = newDead;
+    }
+
     protected virtual void OnEnable()
     {
         dead = false;
         health = startingHealth;
     }
 
+    [PunRPC]
     public virtual void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNoraml)
     {
-        health -= damage;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            health -= damage;
+
+            photonView.RPC("ApplyUpdatedHealth", RpcTarget.Others, health, dead);
+
+            photonView.RPC("OnDamage", RpcTarget.Others, damage, hitPoint, hitNoraml);
+        }
 
         if (health <= 0 && !dead)
         {
@@ -25,6 +41,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
         }
     }
 
+    [PunRPC]
     public virtual void RestoreHealth(float newHealth)
     {
         if (dead)
@@ -32,7 +49,14 @@ public class LivingEntity : MonoBehaviour, IDamageable
             return;
         }
 
-        health += newHealth;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            health += newHealth;
+
+            photonView.RPC("ApplyUpdatedHealth", RpcTarget.Others, health, dead);
+
+            photonView.RPC("RestoreHealth", RpcTarget.Others, newHealth);
+        }
     }
 
     public virtual void Die()

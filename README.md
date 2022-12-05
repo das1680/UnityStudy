@@ -1,4 +1,4 @@
-# UnityStudy - Dodge, Uni-Run
+# UnityStudy - Dodge, Uni-Run, Zombie Survival
 
 ### 유니티 공부 22/09/07
   
@@ -155,4 +155,10 @@ Gun 스크립트 완성
 좀비 서바이벌 1차 완성(좀비 웨이브, 아이템 생성 및 사용, UI 등)
 <br>
 <br>
-## 
+## ~~1205
+### Zombie Survival  
+좀비 서바이벌 2차 완성(로비, 멀티플레이 가능)  
+센터 이사 준비로 너무 바빴다... 힘드러
+<br>
+<br>
+Photon AppID : 7f0d3ff5-8102-4f71-adca-64d4b7c2e9e6
